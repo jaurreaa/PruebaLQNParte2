@@ -42,11 +42,45 @@ class People(TimeStampedModel, SimpleNameModel):
         (NA, 'N/A'),
     )
 
+    BLACK = 'black'
+    BROWN = 'brown'
+    BLONDE = 'blonde'
+    RED = 'red'
+    WHITE = 'white'
+    BALD = 'bald'
+
+    HAIR_COLOR = (
+        (BLACK, 'black'),
+        (BROWN, 'brown'),
+        (BLONDE, 'blonde'),
+        (RED, 'red'),
+        (WHITE, 'white'),
+        (BALD, 'bald'),
+    )
+
+    BLACK = 'black'
+    BROWN = 'brown'
+    YELLOW = 'yellow'
+    RED = 'red'
+    GREEN = 'green'
+    PURPLE = 'purple'
+    UNKNOWN = 'unknown'
+
+    EYE_COLOR = (
+        (BLACK, 'black'),
+        (BROWN, 'brown'),
+        (YELLOW, 'yellow'),
+        (RED, 'red'),
+        (GREEN, 'green'),
+        (PURPLE, 'purple'),
+        (UNKNOWN, 'unknown'),
+    )
+
     height = models.CharField(max_length=16, blank=True)
     mass = models.CharField(max_length=16, blank=True)
-    hair_color = models.CharField(max_length=32, blank=True)
+    hair_color = models.CharField(max_length=32, blank=True, choices=HAIR_COLOR)
     skin_color = models.CharField(max_length=32, blank=True)
-    eye_color = models.CharField(max_length=32, blank=True)
+    eye_color = models.CharField(max_length=32, blank=True, choices=EYE_COLOR)
     birth_year = models.CharField(max_length=16, blank=True)
     gender = models.CharField(max_length=64, choices=GENDER)
     home_world = models.ForeignKey(Planet, on_delete=models.CASCADE, related_name='inhabitants')
@@ -71,8 +105,24 @@ class Producer(SimpleNameModel):
 
 
 class Film(TimeStampedModel):
+    UNO = 1
+    DOS = 2
+    TRES = 3
+    CUATRO = 4
+    CINCO = 5
+    SEIS = 6
+
+    EPISODE_ID = (
+        (UNO, 1),
+        (DOS, 2),
+        (TRES, 3),
+        (CUATRO, 4),
+        (CINCO, 5),
+        (SEIS, 6),
+    )
+
     title = models.CharField(max_length=100)
-    episode_id = models.PositiveSmallIntegerField()  # TODO: Agregar choices
+    episode_id = models.PositiveSmallIntegerField(choices=EPISODE_ID)  # TODO: Agregar choices
     opening_crawl = models.TextField(max_length=1000)
     release_date = models.DateField()
     director = models.ForeignKey(Director, on_delete=models.CASCADE, related_name='films')

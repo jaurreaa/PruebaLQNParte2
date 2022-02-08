@@ -3,11 +3,12 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()  # Load env variables
+from django.core.management import utils
 
-SECRET_KEY = os.getenv('SECRET_KEY', 'Please-generate-a-private key')  # TODO: Generar un key seguro
+SECRET_KEY = os.getenv('SECRET_KEY', str(utils.get_random_secret_key()))  # TODO: Generar un key seguro
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEBUG = True
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '*']  # TODO: dejar solo la URL donde va a estar disponible
+ALLOWED_HOSTS = ['*']  # TODO: dejar solo la URL donde va a estar disponible
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -23,6 +24,10 @@ INSTALLED_APPS = [
     'django_filters',
     'corsheaders',
 ]
+
+GRAPHENE = {
+    "SCHEMA": "swapi.schema.schema"
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
